@@ -13,13 +13,14 @@ public class StockService {
 
     private final StockRepository stockRepository;
 
-    @Transactional
-    public void decrease(Long id, Long quantity) {
+//    @Transactional 트랜잭션은 현재 트랜잭션을 선언한 클래스(StockService)를 필드로 가지는 클래스를 새로 만들어서 실행함(AOP)
+//    트랜잭션 종료 시점에 DB 업데이트를 하는데, race condition으로 인해 DB 커밋전 다른 스레드가 dcrease 메서드를 실행시킬 수 있게된다.
+    public synchronized void decrease(Long id, Long quantity) { //synchronized 키워드를 추가하여 동시에 접근하는 것을 막는다.
         // 재고 조회
         // 재고 감소
         // 갱신된 값 저장
         Stock stock = stockRepository.findById(id).orElseThrow();
         stock.decrease(quantity);
-        stockRepository.save(stock);
+        stockRepository.saveAndFlush(stock);
     }
 }

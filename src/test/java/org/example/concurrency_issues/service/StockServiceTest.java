@@ -44,7 +44,7 @@ class StockServiceTest {
     }
 
     @Test
-    public void 동시에_100개의_요창() throws InterruptedException {
+    public void 동시에_100개의_요청() throws InterruptedException {
         int threadCount = 100; // 100개의 스레드를 생성한다.
         ExecutorService executorService = Executors.newFixedThreadPool(32); // 비동기 실행을 단순화하여 실행하도록 도와주는 자바 API
 
