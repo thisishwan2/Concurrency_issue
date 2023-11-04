@@ -3,10 +3,7 @@ package org.example.concurrency_issues.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
@@ -21,6 +18,9 @@ public class Stock {
 
 
     private Long quantity;
+
+    @Version // javax.persistence.Version
+    private Long version;
 
     public Stock(Long productId, Long quantity) {
         this.productId = productId;
